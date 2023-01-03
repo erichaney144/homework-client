@@ -45,7 +45,7 @@ const DiscountWidget = ({ user, cart, setCart}: Props) => {
   const form = (
     <div className="position-absolute">
     <input type="text" id="discount_code" placeholder="DISCOUNT CODE" className="form-control-inline"/>
-    <span className="position-absolute text-error">{errorMessage}</span>
+    <span className="position-absolute text-danger" style={{top: "34px", left: "0"}}>{errorMessage}</span>
     <button
     type="button"
     className="btn btn-lg btn-block btn-primary ms-4 me-4"

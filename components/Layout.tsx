@@ -23,7 +23,7 @@ const Layout = ({ children, title = 'Store', user, setUser }: Props) => (
     {children}
     <footer>
       <hr />
-      <span>** a homework assignment for Symetra</span>
+      <span>** a homework assignment for Symetra, written by Eric Haney</span>
     </footer>
   </div>
 )
