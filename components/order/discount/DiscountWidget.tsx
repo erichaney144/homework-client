@@ -44,11 +44,11 @@ const DiscountWidget = ({ user, cart, setCart}: Props) => {
 
   const form = (
     <div className="position-absolute">
-    <input type="text" id="discount_code" placeholder="DISCOUNT CODE" className="form-control"/>
+    <input type="text" id="discount_code" placeholder="DISCOUNT CODE" className="form-control-inline"/>
     <span className="position-absolute text-error">{errorMessage}</span>
     <button
     type="button"
-    className="btn btn-lg btn-block btn-primary ml-4 mr-4"
+    className="btn btn-lg btn-block btn-primary ms-4 me-4"
     onClick={applyDiscount}>
       Apply
     </button>
