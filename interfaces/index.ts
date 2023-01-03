@@ -4,7 +4,22 @@
 //
 // import { User } from 'path/to/interfaces';
 
+export type Product = {
+	id: number
+	name: string
+	price: number
+}
+
+export type CartItem = {
+	product: Product
+	quantity: number
+}
+
+export type Cart = {
+	items: CartItem[]
+}
+
 export type User = {
-  id: number
-  name: string
+	id: number
+	name: string
 }

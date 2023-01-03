@@ -1,13 +1,19 @@
-import Link from 'next/link'
-import Layout from '../components/Layout'
+import List from '../components/List'
 
-const IndexPage = () => (
-  <Layout title="Home | Next.js + TypeScript Example">
-    <h1>Hello Next.js 👋</h1>
-    <p>
-      <Link href="/about">About</Link>
-    </p>
-  </Layout>
+const IndexPage = ({products, cart, setUser, user}) => (
+  <List items={products} cart={cart} />
 )
+
+export async function getStaticProps() {
+  // Call server API endpoint to get products
+  const res = await fetch(`${process.env.SERVER_BASE_URL}/products`)
+  const products = await res.json()
+
+  return {
+    props: {
+      products,
+    },
+  }
+}
 
 export default IndexPage
