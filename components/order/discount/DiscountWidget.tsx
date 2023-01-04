@@ -11,13 +11,11 @@ type Props = {
 const DiscountWidget = ({ user, cart, setCart }: Props) => {
 	const [showFormFlag, setShowFormFlag] = useState(false)
 	const [errorMessage, setErrorMessage] = useState('')
+	const [discountCode, setDiscountCode] = useState('')
 
 	const applyDiscount = async () => {
-		const code = encodeURIComponent(
-			(document.getElementById('discount_code') as HTMLInputElement).value
-		)
 		const res = await fetch(
-			`${process.env.SERVER_BASE_URL}/discount/${code}`,
+			`${process.env.SERVER_BASE_URL}/discount/${discountCode}`,
 			{}
 		)
 		const discount: null | Discount = await res.json()
@@ -48,6 +46,7 @@ const DiscountWidget = ({ user, cart, setCart }: Props) => {
 				id='discount_code'
 				placeholder='DISCOUNT CODE'
 				className='form-control-inline'
+				onChange={e => setDiscountCode(e.target.value)}
 			/>
 			<span
 				className='position-absolute text-danger'

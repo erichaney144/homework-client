@@ -14,14 +14,9 @@ type LoginApiResult = {
 
 const LoginDialog = ({ user, setUser }: Props) => {
 	const [nthOrderCode, setNthOrderCode] = useState(null)
+	const [username, setUsername] = useState('')
+	const [password, setPassword] = useState('')
 	const login = async () => {
-		// TODO: issue POST request to server /login and interrogate isNthOrderDiscountAvailable
-		const username = (
-			document.getElementById('login-username') as HTMLInputElement
-		).value
-		const password = (
-			document.getElementById('login-password') as HTMLInputElement
-		).value
 		if (username) {
 			const res = await fetch(`${process.env.SERVER_BASE_URL}/login`, {
 				method: 'POST',
@@ -48,6 +43,7 @@ const LoginDialog = ({ user, setUser }: Props) => {
 					name='username'
 					placeholder='Username'
 					className='form-control'
+					onChange={e => setUsername(e.target.value)}
 				></input>
 			</label>
 			<br />
@@ -58,6 +54,7 @@ const LoginDialog = ({ user, setUser }: Props) => {
 					name='password'
 					placeholder='Password'
 					className='form-control'
+					onChange={e => setPassword(e.target.value)}
 				></input>
 			</label>
 		</div>,
