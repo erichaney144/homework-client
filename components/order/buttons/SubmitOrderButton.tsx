@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import { useState } from 'react'
 import { Cart, User } from '../../../interfaces'
 
 type Props = {
@@ -11,11 +12,12 @@ type Props = {
 type CreateOrderApiResult = {
   success: boolean,
   order?: {id: number},
-  errors?: string[]
+  messages?: string[]
 }
 
 const SubmitOrderButton = ({ user, cart, setCart}: Props) => {
   const router = useRouter()
+  const [errors, setErrors] = useState([])
 
   const checkOut = async () => {
     if (!user) {
@@ -35,23 +37,32 @@ const SubmitOrderButton = ({ user, cart, setCart}: Props) => {
     )
     const orderResult: CreateOrderApiResult = await res.json()
     if (orderResult.success) {
+      setErrors([])
       setCart({items:[]})
       router.push(`/order/confirmation?id=${orderResult.order.id}`)
     } else {
-      // TODO: show errors to the user
+      setErrors(orderResult.messages)
     }
     return cart
   }
+
+  const errorMessages = errors.map((e) => (
+    <div className='text-danger'>{e}</div>
+  ))
+
   return(
-    <button
-    onClick={() => {checkOut();}}
-    type="button"
-    className="btn btn-lg btn-block btn-primary m-4"
-    data-bs-toggle={!user ? 'modal' : ''}
-    data-bs-target={!user ? '#login-modal' : ''}
-    >
-      Submit Order
-    </button>
+    <div className='d-inline position-relative'>
+      <button
+      onClick={() => {checkOut();}}
+      type="button"
+      className="btn btn-lg btn-block btn-primary m-4"
+      data-bs-toggle={!user ? 'modal' : ''}
+      data-bs-target={!user ? '#login-modal' : ''}
+      >
+        Submit Order
+      </button>
+      {errorMessages}
+    </div>
   )
 }
 
