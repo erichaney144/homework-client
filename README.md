@@ -8,10 +8,12 @@ It is running live on an EC2 instance here: http://54.190.62.35
 
 First run [the server](https://github.com/erichaney144/homework) locally
 
+Make sure you don't have anything running on port 3000
+
 Then clone this repo and run:
 
 ```
 yarn
-echo 'SERVER_BASE_URL=http://localhost:8084' > .env.local
+echo 'SERVER_BASE_URL=http://localhost:8080' > .env.local
 yarn dev
 ```
