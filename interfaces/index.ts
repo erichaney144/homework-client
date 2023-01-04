@@ -15,8 +15,15 @@ export type CartItem = {
 	quantity: number
 }
 
+export type Discount = {
+	code: string
+	amount: number
+	type: 'PERCENT' | 'FIXED'
+}
+
 export type Cart = {
 	items: CartItem[]
+	discount: Discount
 }
 
 export type User = {

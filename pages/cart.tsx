@@ -6,6 +6,16 @@ import DiscountWidget from "../components/order/discount/DiscountWidget"
 const CartPage = ({user, cart, setCart, orderId}) => {
   const router = useRouter()
   if (cart?.items?.length) {
+    const subtotal = cart.items.reduce(
+      (subtotal, item) => subtotal + (item.quantity * item.product.price)
+    , 0)
+    console.log(cart.discount)
+    console.log(subtotal)
+    const discount = cart.discount ?
+        cart.discount.type == 'PERCENT' ?
+        subtotal * cart.discount.amount / 100
+        : cart.discount.amount
+      : 0
     return (
     <div>
       <h1>Cart</h1>
@@ -25,14 +35,21 @@ const CartPage = ({user, cart, setCart, orderId}) => {
       ))}
       { cart.discount ?
         ( <tr>
+            <td className="fw-bold">Sub-total:</td>
+            <td className="text-end fw-bold">${subtotal}</td>
+          </tr>
+        ) : ''
+      }
+      { cart.discount ?
+        ( <tr>
             <td>Discount: {cart.discount.code}</td>
-            <td className="text-end">${cart.discount.amount}</td>
+            <td className="text-end">${discount}</td>
           </tr>
         ) : ''
       }
         <tr>
-          <td>Total:</td>
-          <td className="text-end">${cart.items.reduce((subtotal, item)=>subtotal + (item.quantity * item.product.price), 0)}</td>
+          <td className="fw-bold">Total:</td>
+          <td className="text-end fw-bold">${subtotal - discount}</td>
         </tr>
         </tbody>
       </table>

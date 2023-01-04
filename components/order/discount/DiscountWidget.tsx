@@ -1,19 +1,12 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import { Cart, User } from '../../../interfaces'
+import { Cart, Discount, User } from '../../../interfaces'
 
 type Props = {
   user: User
   cart: Cart
   setCart: Function
-}
-
-type DiscountApiResult = {
-  id: number,
-  code: string,
-  type: 'PERCENT' | 'FIXED',
-  amount: number
 }
 
 const DiscountWidget = ({ user, cart, setCart}: Props) => {
@@ -30,8 +23,8 @@ const DiscountWidget = ({ user, cart, setCart}: Props) => {
       `${process.env.SERVER_BASE_URL}/discount/${code}`,
       {}
     )
-    const discount:null | DiscountApiResult = await res.json()
-    if (discount) {
+    const discount:null | Discount = await res.json()
+    if (discount && !((discount as any).isValidForUse === false)) {
       setCart({...cart, discount})
       setShowFormFlag(false)
       setErrorMessage('')

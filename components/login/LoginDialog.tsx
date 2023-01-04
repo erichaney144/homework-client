@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { User } from '../../interfaces'
 
 type Props = {
@@ -5,12 +6,33 @@ type Props = {
   setUser: Function
 }
 
+type LoginApiResult = {
+  success: boolean
+  isNthOrderDiscountAvailable: boolean
+  nthOrderDiscountCode: string | null
+}
+
 const LoginDialog = ({ user, setUser }: Props) => {
-  const login = () => {
+  const [nthOrderCode, setNthOrderCode] = useState(null)
+  const login = async () => {
     // TODO: issue POST request to server /login and interrogate isNthOrderDiscountAvailable
     const username = (document.getElementById("login-username") as HTMLInputElement).value
+    const password = (document.getElementById("login-password") as HTMLInputElement).value
     if (username) {
-      setUser({name: username})
+      const res = await fetch(`${process.env.SERVER_BASE_URL}/login`,
+        {
+          method: 'POST',
+          body: JSON.stringify({ username, password }),
+          headers: {'Content-Type': 'application/json'}
+        }
+      )
+      const {success, nthOrderDiscountCode} = (await res.json() as LoginApiResult)
+      if (success) {
+        setUser({name: username})
+        if (nthOrderDiscountCode) {
+          setNthOrderCode(nthOrderDiscountCode)
+        }
+      }
     }
   }
 
@@ -30,11 +52,22 @@ const LoginDialog = ({ user, setUser }: Props) => {
       </div>)
   ]
 
-  const success = [(
+  const successWithDiscount = (
       <div>
-        <h3 className='text-success m-4 text-center'>Success!</h3>
+        <h3 className='text-success m-4 text-center'>Successful Login</h3>
+        <h4 className='text-secondary m-4 text-center'>For a special deal, use discount code <span className='text-body'>{nthOrderCode}</span></h4>
       </div>
-    ),
+  )
+
+  const successWithoutDiscount = (
+      <div>
+        <h3 className='text-success m-4 text-center'>Successful Login.</h3>
+        <h4 className='text-secondary m-4 text-center'>Now logged in as <span className='text-body'>{user?.name}</span></h4>
+      </div>
+  )
+
+  const success = [
+    nthOrderCode ? successWithDiscount : successWithoutDiscount,
     (
       <div className="modal-footer">
         <button type="button" className="btn btn-primary" data-bs-dismiss="modal">Close</button>

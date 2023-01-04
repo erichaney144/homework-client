@@ -27,7 +27,8 @@ const SubmitOrderButton = ({ user, cart, setCart}: Props) => {
         body: JSON.stringify({
           items: cart.items.map(({quantity, product}) => {
             return {productId: product.id, quantity}
-          })
+          }),
+          discount: cart.discount?.code
         }),
         headers: {'Content-Type': 'application/json'}
       }
@@ -37,6 +38,7 @@ const SubmitOrderButton = ({ user, cart, setCart}: Props) => {
       setCart({items:[]})
       router.push(`/order/confirmation?id=${orderResult.order.id}`)
     } else {
+      // TODO: show errors to the user
     }
     return cart
   }
