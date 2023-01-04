@@ -7,6 +7,7 @@ type Props = {
 
 const LoginDialog = ({ user, setUser }: Props) => {
   const login = () => {
+    // TODO: issue POST request to server /login and interrogate isNthOrderDiscountAvailable
     const username = (document.getElementById("login-username") as HTMLInputElement).value
     if (username) {
       setUser({name: username})
