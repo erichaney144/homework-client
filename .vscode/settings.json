@@ -1,0 +1,21 @@
+{
+	"editor.formatOnSave": true,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.tabSize": 2,
+	"search.exclude": {
+		"**/.idea/**": true,
+		"**/build/**": true,
+		"**/out/**": true,
+		"**/_notes/**": true,
+		"**/_Notes/**": true,
+		"**/node_modules/**": true,
+		"**/public/**": true
+	},
+	"javascript.updateImportsOnFileMove.enabled": "prompt",
+	"typescript.updateImportsOnFileMove.enabled": "prompt",
+
+	"editor.codeActionsOnSave": {
+		"source.organizeImports": true,
+		"source.addMissingImports": true
+	}
+}
