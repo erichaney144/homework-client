@@ -24,7 +24,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 	pageProps.setOrderId = setOrderId
 
 	return (
-	  <Layout title="Music Store (Symetra Homework)" user={user} setUser={setUser}>
+	  <Layout title="String Theory - Music Store (Symetra Homework)" user={user} setUser={setUser}>
 			<Component {...pageProps} />
 			<LoginDialog user={user} setUser={setUser}/>
 			<LogoutConfirmationDialog/>

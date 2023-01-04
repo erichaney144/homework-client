@@ -3,7 +3,7 @@ import Link from "next/link"
 const Navbar = ({user, setUser}) => (
 <nav className="navbar navbar-expand-lg navbar-light bg-light mb-4">
   <div className="container-fluid">
-    <Link className='navbar-brand' href='/'>Music Store<sup>**</sup></Link>
+    <Link className='navbar-brand' href='/'>String Theory - Music Store<sup>**</sup></Link>
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span className="navbar-toggler-icon"></span>
     </button>
