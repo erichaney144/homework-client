@@ -27,9 +27,7 @@ const LoginDialog = ({ user, setUser }: Props) => {
 				(await res.json()) as LoginApiResult
 			if (success) {
 				setUser({ name: username })
-				if (nthOrderDiscountCode) {
-					setNthOrderCode(nthOrderDiscountCode)
-				}
+				setNthOrderCode(nthOrderDiscountCode)
 			}
 		}
 	}
